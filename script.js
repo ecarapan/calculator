@@ -1,6 +1,18 @@
-let numberOne = 0;
-let NumberTwo = 0;
+let numbers = [];
 let operator = '';
+
+let display = document.querySelector('.display');
+let buttons = Array.from(document.querySelectorAll('button'));
+
+buttons.forEach(button => button.addEventListener('click', e => {
+    if (typeof e.target.textContent === 'number') {
+        numbers.push(+e.target.textContent);
+        display.textContent += e.target.textContent
+    } else {
+        operator = e.target.textContent;
+        display.textContent += e.target.textContent
+    }
+}));
 
 function operate(numberOne, numberTwo, operator) {
     let result;
