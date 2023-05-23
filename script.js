@@ -1,18 +1,26 @@
 let equation = '';
 
-document.querySelectorAll('.operand').forEach(button => button.addEventListener('click', e => {
-    equation += e.target.textContent;
-    populateDisplay(equation);
+document.querySelectorAll('.math').forEach(button => button.addEventListener('click', e => {
+    if (equation.length >= 2) {
+        if (isNaN(e.target.textContent) && isNaN(equation[equation.length - 1])) {
+            document.querySelector('.error').textContent = 'Invalid input';
+        } else {
+            equation += e.target.textContent;
+            document.querySelector('.display').textContent = equation;
+        }
+    } else {
+        equation += e.target.textContent;
+        document.querySelector('.display').textContent = equation;
+    }
+
 }));
 
+document.querySelector('.equal').addEventListener('click', e => {
 
 
-document.querySelector('.equal').addEventListener('click', e => operate);
+});
 
 
-function populateDisplay(value) {
-    document.querySelector('.display').textContent += value;
-}
 
 function operate(numberOne, numberTwo, operator) {
     let result;
