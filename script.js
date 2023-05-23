@@ -10,3 +10,7 @@ function subtract(minuend, subtrahend) {
 function multiply(multiplicand, multiplier) {
     return multiplicand * multiplier;
 }
+
+function divide(dividend, divisor) {    
+    return dividend / divisor;
+}
