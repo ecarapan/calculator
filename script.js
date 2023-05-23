@@ -1,18 +1,18 @@
-let numbers = [];
-let operator = '';
+let equation = '';
 
-let display = document.querySelector('.display');
-let buttons = Array.from(document.querySelectorAll('button'));
-
-buttons.forEach(button => button.addEventListener('click', e => {
-    if (typeof e.target.textContent === 'number') {
-        numbers.push(+e.target.textContent);
-        display.textContent += e.target.textContent
-    } else {
-        operator = e.target.textContent;
-        display.textContent += e.target.textContent
-    }
+document.querySelectorAll('.operand').forEach(button => button.addEventListener('click', e => {
+    equation += e.target.textContent;
+    populateDisplay(equation);
 }));
+
+
+
+document.querySelector('.equal').addEventListener('click', e => operate);
+
+
+function populateDisplay(value) {
+    document.querySelector('.display').textContent += value;
+}
 
 function operate(numberOne, numberTwo, operator) {
     let result;
