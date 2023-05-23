@@ -3,7 +3,7 @@ function add(addendOne, addendTwo) {
     return addendOne + addendTwo;
 }
 
-function subtract(...values) {
-  
+function subtract(minuend, subtrahend) {
+    return minuend - subtrahend;
 }
 
