@@ -6,31 +6,48 @@ document.querySelectorAll('.math').forEach(button => button.addEventListener('cl
 
     error.textContent = '';
     if (equation.length >= 2) {
-        if (isNaN(e.target.textContent) && isNaN(equation[equation.length - 1])) {
+        if (isNaN(e.target.textContent) && isNaN(equation[equation.length - 2])) {
             error.textContent = 'Invalid input';
-        } else {
+        } else if (!isNaN(e.target.textContent)) {
             equation += e.target.textContent;
+            display.textContent = equation;
+        } else if (isNaN(e.target.textContent) && !isNaN(equation[equation.length - 2])) {
+            equation += ` ${e.target.textContent} `;
             display.textContent = equation;
         }
     } else {
-        equation += e.target.textContent;
-        display.textContent = equation;
+        if (!isNaN(e.target.textContent)) {
+            equation += e.target.textContent;
+            display.textContent = equation;
+        } else {
+            equation += ` ${e.target.textContent} `;
+            display.textContent = equation;
+        }
     }
 }));
+
+document.querySelector('.equal').addEventListener('click', e => {
+    if(isNaN(equation[equation.length - 1])) {
+        document.querySelector('.error').textContent = 'Invalid operation';
+    } else {
+        let equationArray = equation.split(' ');
+        console.table(equationArray);
+        for (let i = 0; i < equation.length; i++) {
+            if (i === '*') {
+            
+            }
+        }
+    }
+});
 
 document.querySelector('.clear').addEventListener('click', e => {
     equation = '';
     document.querySelector('.display').textContent = undefined;
 });
 
-document.querySelector('.equal').addEventListener('click', e => {
 
 
-});
-
-
-
-function operate(numberOne, numberTwo, operator) {
+function operate(numberOne, operator, numberTwo) {
     let result;
     switch (operator) {
         case '+':
@@ -46,7 +63,7 @@ function operate(numberOne, numberTwo, operator) {
             result = add(numberOne, numberTwo);
             break;
         default:
-            result = 'Select on operation';
+            result = 'Select an operation';
     }
     return result;
 }
