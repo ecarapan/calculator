@@ -50,8 +50,11 @@ document.querySelector('.equal').addEventListener('click', e => {
                 i--;
             }
         }
-        document.querySelector('.display').textContent = eqArray;
-        equation = '';
+
+        if (!Number.isInteger(eqArray[0])) 
+            eqArray[0] = eqArray[0].toFixed(2);
+        document.querySelector('.display').textContent = eqArray[0];
+        equation = eqArray[0];
     }
 });
 
