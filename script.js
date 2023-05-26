@@ -1,19 +1,27 @@
 let equation = '';
 
 document.querySelectorAll('.math').forEach(button => button.addEventListener('click', e => {
+    let display = document.querySelector('.display');
+    let error = document.querySelector('.error');
+
+    error.textContent = '';
     if (equation.length >= 2) {
         if (isNaN(e.target.textContent) && isNaN(equation[equation.length - 1])) {
-            document.querySelector('.error').textContent = 'Invalid input';
+            error.textContent = 'Invalid input';
         } else {
             equation += e.target.textContent;
-            document.querySelector('.display').textContent = equation;
+            display.textContent = equation;
         }
     } else {
         equation += e.target.textContent;
-        document.querySelector('.display').textContent = equation;
+        display.textContent = equation;
     }
-
 }));
+
+document.querySelector('.clear').addEventListener('click', e => {
+    equation = '';
+    document.querySelector('.display').textContent = undefined;
+});
 
 document.querySelector('.equal').addEventListener('click', e => {
 
