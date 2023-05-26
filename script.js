@@ -33,44 +33,32 @@ document.querySelector('.equal').addEventListener('click', e => {
         document.querySelector('.error').textContent = 'Invalid operation';
     } else {
         let eqArray = equation.split(' ');
-        let tempArray = [];
-
-        console.table(eqArray);
-
         for (let i = 0; i < eqArray.length; i++) {
-            if (eqArray[i] === '+' || eqArray[i] === '-') {
-                if (i + 1 === eqArray.length) {
-                    if (eqArray.length === 3) {
-                        tempArray.push(+eqArray[i - 1])
-                        tempArray.push('+');
-                        tempArray.push(+eqArray[i + 1])
-                    } else {
-                        tempArray.push(+eqArray[i + 1])
-                    }
-                } else if (eqArray[i + 2] === '*' || eqArray[i + 2] === '÷') {
-                    tempArray.push(+eqArray[i - 1]);
-                    tempArray.push('+');
-                } else if (eqArray[i - 2] === '*' || eqArray[i - 2] === '÷') {
-                    tempArray.push(+eqArray[i + 1]);
-                    tempArray.push('+');
+            if (eqArray[i] === '+' || eqArray[i] === '-') {   
+                if (eqArray[i + 2] === '*' || eqArray[i + 2] === '÷') {
+                    eqArray[i + 1] = operate(+eqArray[i + 1], eqArray[i + 2], +eqArray[i + 3]);
+                    eqArray.splice(i + 2, 2);
+                    i--;
                 } else {
-                    tempArray.push(operate(+eqArray[i - 1], eqArray[i], +eqArray[i + 1]));
-                    tempArray.push('+');
-                    
+                    eqArray[i + 1] = operate(+eqArray[i - 1], eqArray[i], +eqArray[i + 1]);
+                    eqArray.splice(i - 1, 2);
+                    i--;
                 }
             } else if (eqArray[i] === '*' || eqArray[i] === '÷') {
-                tempArray.push(operate(+eqArray[i - 1], eqArray[i], +eqArray[i + 1]));
-                tempArray.push('+');
+                eqArray[i + 1] = operate(+eqArray[i - 1], eqArray[i], +eqArray[i + 1]);
+                eqArray.splice(i - 1, 2);
+                i--;
             }
         }
-        console.table(tempArray);
+        document.querySelector('.display').textContent = eqArray;
+        equation = '';
     }
 });
 
 //Listens for the clear button, C, click.
 document.querySelector('.clear').addEventListener('click', e => {
+    document.querySelector('.display').textContent = '';
     equation = '';
-    document.querySelector('.display').textContent = undefined;
 });
 
 
